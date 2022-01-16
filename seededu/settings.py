@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'storages',
     'allauth',  
     'allauth.account', 
     'allauth.socialaccount',  
@@ -208,12 +209,47 @@ LOGOUT_REDIRECT_URL = "/"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'static')
-]
-STATIC_URL = '/static/'
+DEBUG = True
 
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
-MEDIA_URL = '/media/'
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static')
+# ]
 
-django_heroku.settings(locals())
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_URL = '/static/'
+
+# # Extra places for collectstatic to find static files.
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static'),
+# )
+
+# MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+# MEDIA_URL = '/media/'
+
+# STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+
+# MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "mediafiles"
+
+
+
+
+
+
+
+
+
+
+DEFAULT_FILE_STORAGE = 'seededu.custom_azure.AzureMediaStorage'
+STATICFILES_STORAGE = 'seededu.custom_azure.AzureStaticStorage'
+
+
+STATIC_LOCATION = "static"
+MEDIA_LOCATION = "media"
+
+AZURE_ACCOUNT_NAME = "testseed"
+AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
